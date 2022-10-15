@@ -1,0 +1,23 @@
+{
+  "name": "ats_new_version",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "cypress run",
+    "cy:open": "cypress open",
+    "lint": "eslint cypress/**/*.js",
+    "lint:fix": "eslint cypress/**/*.js --fix"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cypress": "^10.10.0",
+    "eslint-plugin-cypress": "^2.12.1",
+    "faker": "^5.5.3"
+  },
+  "devDependencies": {
+    "eslint": "^8.25.0"
+  }
+}
