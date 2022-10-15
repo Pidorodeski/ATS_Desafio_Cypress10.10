@@ -25,13 +25,9 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 Cypress.Commands.add('cadastrarCandidato', (nome) =>{
-    cy.get('#criar_novo_candidato').click();
-    cy.contains('div', 'Cadastrar novo Candidato').should('be.visible');
-    cy.get('.po-input').type(nome)
-    cy.contains('span', 'Salvar').click()
-    cy.contains('.po-table-column', nome).should('be.exist')
-})
-
-Cypress.Commands.add('editarCandidato', (nome, nomeEdicao) =>{
-    
+  cy.get('#criar_novo_candidato').click()
+  cy.contains('div', 'Cadastrar novo Candidato').should('be.visible')
+  cy.get('.po-input').type(nome)
+  cy.contains('span', 'Salvar').click()
+  cy.contains('.po-table-column', nome).should('be.exist')
 })
