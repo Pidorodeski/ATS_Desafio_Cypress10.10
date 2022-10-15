@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-context('Realizar teste de CRUD na tla de Vagas', () => {
+context('Realizar teste de CRUD na tela de Vagas', () => {
   const faker = require('faker')
   let nomeVaga
   beforeEach(() => {

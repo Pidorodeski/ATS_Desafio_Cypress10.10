@@ -24,6 +24,8 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+const faker = require('faker')
+
 Cypress.Commands.add('cadastrarCandidato', (nome) =>{
   cy.intercept('POST','**/candidatos').as('postCandidato')
   cy.get('#criar_novo_candidato').click()
@@ -102,4 +104,36 @@ Cypress.Commands.add('deletarVaga', (vaga) =>{
   cy.contains('button', 'Deletar').click()
   cy.contains('.po-table-column', vaga).should('not.be.exist')
   cy.wait('@deleteVaga').its('response.statusCode').should('eq', 200)
+})
+
+Cypress.Commands.add('cadastrarCurriculo', (nome) =>{
+  cy.intercept('POST', '**/curriculo').as('postCurriculo')
+  cy.get('#swal2-title').should('not.be.exist')
+  cy.get('.po-table-group-row')
+    .contains('tr', nome)
+    .scrollTo('bottom',{ensureScrollable: false})
+    .find('.po-table-column-actions')
+    .click()
+  cy.contains('div','Cadastrar Curriculo').click()
+  cy.get('.po-modal-title').should('contain', 'Cadastrar Currículo')
+  cy.get('.po-field-container > .po-row > :nth-child(1)').click()
+  cy.get('[name="birthday"]').type('01012001')
+  cy.get('[name="wage"]').type(Math.floor(Math.random() * 10000) + 1)
+  cy.get('[name="email"]').type(faker.internet.email())
+  cy.get('[name="phone"]').type(Math.floor(Math.random() * 100000000000) + 1)
+  cy.get('[name="address"]').type(faker.lorem.words(5))
+  cy.get('[name="address_number"]').type(Math.floor(Math.random() * 100) + 1)
+  cy.get('[name="state"]').select('Rio de Janeiro', {force: true})
+  cy.get('[name="hobbies"]').select('Bicicleta', {force: true})
+  cy.get('[name="short_description"]').type(faker.lorem.words(10))
+  cy.contains('span', 'Salvar').click()
+  cy.get('#swal2-title').should('not.be.exist')
+
+  //cy.get('.po-table-group-row').contains('tr', nome).find('.po-table-column').should('contain', 'Não tem Currículo')
+  cy.contains('tbody', nome).then(($nav) => {
+    console.log($nav[0].innerText)
+    expect($nav[0].innerText).to.contain(nome+'\t'+'TEM CURRÍCULO')
+  })
+
+  cy.wait('@postCurriculo').its('response.statusCode').should('eq', 201)
 })
