@@ -17,6 +17,6 @@ context('Realizar teste de CRUD na tla de Candidatos', () => {
   it('Editar um candidato', () =>{
     cy.cadastrarCandidato(nomeCandiato)
     cy.wait('@getCandidatos')
-    
+
   })
 })
