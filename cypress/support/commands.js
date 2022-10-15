@@ -129,7 +129,6 @@ Cypress.Commands.add('cadastrarCurriculo', (nome) =>{
   cy.contains('span', 'Salvar').click()
   cy.get('#swal2-title').should('not.be.exist')
 
-  //cy.get('.po-table-group-row').contains('tr', nome).find('.po-table-column').should('contain', 'Não tem Currículo')
   cy.contains('tbody', nome).then(($nav) => {
     console.log($nav[0].innerText)
     expect($nav[0].innerText).to.contain(nome+'\t'+'TEM CURRÍCULO')
