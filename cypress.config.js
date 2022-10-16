@@ -1,10 +1,16 @@
 const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
-  e2e: {
-    setupNodeEvents(on, config) {
-      // implement node event listeners here
-    },
-    "baseUrl": "http://localhost:4200",
+  firefoxGcInterval: {
+    runMode: 3,
+    openMode: null
   },
+
+  
+  e2e: {
+    setupNodeEvents(on, config) {},
+    baseUrl: 'http://localhost:4200',
+    experimentalSessionAndOrigin: true,
+  },
+
 });

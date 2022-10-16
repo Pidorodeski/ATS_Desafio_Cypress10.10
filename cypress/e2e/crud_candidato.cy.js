@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 context('Realizar teste de CRUD na tela de Candidatos', () => {
-  const faker = require('faker')
+  const { faker } = require('@faker-js/faker');
   let nomeCandidato
   beforeEach(() => {
     cy.intercept('GET', '**/candidatos').as('getCandidatos')
@@ -31,5 +31,9 @@ context('Realizar teste de CRUD na tela de Candidatos', () => {
 
     cy.deletarCandidato(nomeCandidato)
     cy.wait('@getCandidatos')
+  })
+
+  it('Tenar cadastrar candidato com nome vazio', () =>{
+    cy.cadastrarCandidato()
   })
 })
